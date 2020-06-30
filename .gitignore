@@ -11,6 +11,15 @@
 # production
 /build
 
+.env
+/db
+/utility
+/server
+/store/actions
+/store/reducers
+/components/Github/CreateRepository
+../.jshintrc
+
 # misc
 .DS_Store
 .env.local
