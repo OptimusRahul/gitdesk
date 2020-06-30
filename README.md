@@ -1,3 +1,6 @@
+### Preview
+![Alt Text](https://github.com/OptimusRahul/GitDesk/blob/master/Gitdesk.gif)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
