@@ -1,5 +1,5 @@
 ### Preview
-![Alt Text]((https://drive.google.com/file/d/1Gw4-rsXTq95eJStjlLD-oXavGXoePh2u/view?usp=sharing)
+![Alt Text](https://github.com/OptimusRahul/GitDesk/blob/master/Gitdesk.gif)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
