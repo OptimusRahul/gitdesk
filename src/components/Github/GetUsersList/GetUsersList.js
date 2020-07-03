@@ -47,7 +47,13 @@ class GetUserList extends Component {
     render(){
         let currentRenderingComponent;
         console.log('hi', this.props.location.state.userName);
-        if(this.state.loading && this.props.location.state.userName !== this.state.userName){
+        if(this.state.loading && this.props.location.state.userName !== this.state.user){
+            /*if(this.props.location){
+                if(this.props.location.state.userName !== this.state.userName)
+            }*/
+            currentRenderingComponent = <Spinner />;
+            this.getUsersList();
+        } else if(this.props.location && this.props.location.state.userName !== this.state.user){
             currentRenderingComponent = <Spinner />;
             this.getUsersList();
         } else {
