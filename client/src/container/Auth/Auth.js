@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { connect } from 'react-redux';
+
+import * as actions from '../../store/actions/index';
+import { updateObject } from '../../utility/utility';
+import './Auth.css';
 
 class Auth extends Component {
 
@@ -30,16 +35,11 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
-/*<div class="d-flex flex-row mx-auto" style="min-height: 200px; width: 19rem;">
-    <div class="justify-content-center align-self-center mx-auto">
-        <div>
-            <div class="text-center">
-                Marks Attendence
-            </div>                     
-            <div>
-                Do Something Here
-            </div>                 
-        </div>             
-    </div>         
-</div>*/
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: () => dispatch(actions.auth()),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/home'));
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);

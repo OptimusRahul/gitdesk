@@ -2,25 +2,20 @@
   "name": "gitdesk",
   "version": "0.1.0",
   "private": true,
-  "main": "../server/main.js",
+  "main": "main.js",
   "dependencies": {
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "electron-localshortcut": "^3.2.1",
     "electron-oauth2": "^3.0.0",
+    "express": "^4.17.1",
     "fs-extra": "^9.0.1",
     "is-electron": "^2.2.0",
+    "os": "^0.1.1",
     "superagent": "^5.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron ."
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "electron ."
   },
   "browserslist": {
     "production": [
