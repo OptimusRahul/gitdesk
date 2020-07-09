@@ -1,8 +1,7 @@
-const verifyOS = (req, res, next) => {
+export const verifyOS = (req, res, next) => {
     if(process.platform === 'darwin') {
-        return next(response.status(200).json({
-            message: 'macOS'
-        }));
+        req.os = 'macos'
+        next();
     } else if(process.platform === 'win32') {
         return next(response.status(200).json({
             message: 'windows'

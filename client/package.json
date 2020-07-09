@@ -2,12 +2,13 @@
   "name": "gitdesk",
   "version": "0.1.0",
   "private": true,
-  "main": "src/main.js",
+  "main": "../server/server.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "babel-register": "^6.26.0",
     "bootstrap": "^4.5.0",
     "dotenv": "^8.2.0",
     "electron-localshortcut": "^3.2.1",
@@ -16,6 +17,7 @@
     "is-electron": "^2.2.0",
     "mdbreact": "^4.27.0",
     "node-run-cmd": "^1.0.1",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
@@ -33,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron ."
+    "electron": "electron -r babel-register ."
   },
   "eslintConfig": {
     "extends": "react-app"

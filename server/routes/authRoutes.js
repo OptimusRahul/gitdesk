@@ -1,12 +1,27 @@
-import { Router } from 'express';
-import { } from '../controller/authController';
+import express from 'express';
+import passport from 'passport';
+import { githubConfiguration } from '../config/config';
+import { ipcMain } from 'electron';
+//import { passport } from '../controller/passport';
 
-const router = Router();
+const authRouter = express.Router();
 
 //auth login
 
-router.post('/login', authController.login);
-router.get('/logout', authController.logout);
-router.get('/sign-in-with-different-account', authController.newAccount);
+console.log('auth router called');
 
-export { router };
+authRouter.get('/auth/github', 
+    passport.authenticate('github', { scope: ['repo'] })
+);
+
+authRouter.get('/auth/github/callback', 
+    passport.authenticate('github',  { failureRedirect: '/login' }), (req, res) => {
+        const token = req.user.token;
+        githubConfiguration.access_token = req.user.token;
+        console.log('Inside auth callback ---------', token);
+        res.redirect(`http://localhost:3000/home?token=${token}`);
+
+    }
+);
+
+export { authRouter };

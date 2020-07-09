@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { baseURL } from '../utility/config';
+import { urlConfiguration } from '../config/config';
 import catchAsync from '../utility/catchAsync';
 import { response } from 'express';
+
+const baseURL = urlConfiguration.baseURL;
 
 const headers = {
     "headers" : {

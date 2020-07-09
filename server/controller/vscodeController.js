@@ -3,10 +3,11 @@ import { spawn } from 'child_process';
 import { path } from 'path';
 import { stat } from 'fs';
 import { response } from 'express';
-
+import { applicationConfiguration } from '../config/config';
+import { verifyOS } from '../middlewares/verifyOS';
 
 const appName = app.getName();
-const getAppPath = path.join(app.getPath('appData'), appName);
+//const getAppPath = path.join(app.getPath('appData'), appName);
 
 const verifyPath = (path) => {
     stat(path, function(err) {
@@ -24,8 +25,13 @@ const verifyPath = (path) => {
     });
 };
 
-const openVSCode = (args, url) => {
-    const response = verifyPath(getAppPath);
+export const openVSCode = (args) => {
+    const path = (
+        applicationConfiguration.customApplicationPath !== '' ? 
+        applicationConfiguration.customApplicationPath :
+        applicationConfiguration.defaultApplicationPath
+    ); 
+    const response = verifyPath(path);
     if(response.status === 200) {
         openTerminal(200, args);
     } else {
@@ -35,6 +41,8 @@ const openVSCode = (args, url) => {
 
 const openTerminal = (statusCode, args) => {
     let command;
+    let os = verifyOS();
+    console.log(os);
     let folderName = args.substr(args.lastIndexOf('/')+1, args.length).split('.git')[0];
     if(statusCode === 200) {
         command = `start cmd.exe /K "cd /D ${gitDeskPath} && cd ${folderName} && code . && exit"`

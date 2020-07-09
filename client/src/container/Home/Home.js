@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
 import GetUser from '../../components/Github/GetUser/GetUser';
 import GetRepo from '../../components/Github/GetRepository/GetRepo';
 import Navbar from '../../components/Navbar/Navbar';
@@ -16,7 +17,8 @@ class Home extends Component {
             user: null,
             token: false
         }
-        this.getAccessToken();
+        //this.getAccessToken();
+        console.log(this.props.location);
     }
 
     getAccessToken = () => {
@@ -74,4 +76,18 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        type: state.home.type,
+        user: state.home.user,
+        token: state.home.token
+    };
+};
+
+/*const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+};*/
+
+export default connect(null, mapStateToProps)(Home);

@@ -1,39 +1,29 @@
-import { ipcMain } from 'electron';
-import { clientEvent } from '../utility/configuration';
-import { auth, browser, editor} from '../../shared/shared';
+import { shell } from 'electron';
+import { clientConfiguration,  } from '../config/config';
+import { responseObj } from '../utility/responseObject';
+import { openVSCode } from '../controller/vscodeController';
+import { oauthGithub } from '../controller/authController';
 
-const setReponseMessage = (statusCode, status, message) => {
-    const reponseObject = {
-        statusCode,
-        status,
-        message
-    };
-
-    return reponseObject;
-};
-
-const executeEvent = (event, args) => {
-    ipcMain.on(args.action, (event, args) => {
-        console.log(`${args.action} executed`);
-        event.sender.send(`${clientEvent}-${args.action}-response`, setReponseMessage(200, 'success', 'Auth Successful'));
-    });
-};
-
-export const checkEvent = (event, args) => {
+export const checkEvent = (mainWindow, event, args) => {
     switch(args.action){
-        case auth:
-            console.log('auth');
-            executeEvent(event, args);
+        case clientConfiguration.authEvent: 
+            oauthGithub(mainWindow);
             break;
-        case browser:
-            console.log('chrome');
-            executeEvent(event, args);
+        case clientConfiguration.browserEvent:
+            shell.openExternal(args.url);
+            event.sender.send(
+                `${clientConfiguration.browserEventReply}`, 
+                responseObj(200, 'success', 'Browser Action Successful')
+            );
             break;
-        case editor:
+        case clientConfiguration.editorEvent:
             console.log('editor');
-            executeEvent(event, args);
+            openVSCode(args.repoURL);
             break;
         default:
-            event.sender.send(`${clientEvent}-response`, setReponseMessage(404, 'fail', 'No action exists');
+            /*event.sender.send(
+                `${clientConfiguration.invalidClientEvent}`, 
+                setzxReponseMessage(404, 'fail', 'Invalid Action')
+            );*/
     }
 };

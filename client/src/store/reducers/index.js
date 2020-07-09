@@ -5,3 +5,5 @@ export { userReducer } from './user/user';
 export { userRepoReducer } from './user/userRepo';
 export { listReducer } from './list/list';
 export { createOwnerRepoReducer } from './createRepo/createRepo';
+export { browserReducer } from './osApps/browser';
+export { editorReducer } from './osApps/editor'; 

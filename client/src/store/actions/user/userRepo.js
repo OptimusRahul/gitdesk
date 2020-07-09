@@ -1,5 +1,7 @@
-import axios from 'axios';
+//import axios from 'axios';
+import axios from '../../../axios';
 import * as actionTypes from '../actionTypes/actionTypes';
+import { fetchOwnerRepoInit, fetchOwnerRepoFail } from '../owner/ownerRepo';
 
 export const fetchUserRepoInit = () => {
     return {
@@ -26,3 +28,19 @@ export const fetchUserRepoFail = (error) => {
         error
     };
 };
+
+export const fetchUserRepo = () => {
+    return dispatch => {
+        dispatch(fetchOwnerRepoInit());
+        dispatch(fetchUserRepoStart());
+        axios.get('/search/user/repo')
+            .then(response => {
+                console.log(response);
+                dispatch(fetchUserRepoSuccess(response));
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(fetchOwnerRepoFail(error));
+            });
+    };
+}

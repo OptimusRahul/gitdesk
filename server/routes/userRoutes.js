@@ -7,17 +7,17 @@ import {
     deleteAuthenticatedUserRepo
 } from '../controller/userController';
 
-const router = Router();
+const userRouter = Router();
 
-router.get('/search/user/list', userController.getSearchUsersList);
-router.get('/search/user/details', userController.getSearchedUserData);
-router.get('/search/user/repo', userController.getSearchedUserRepo);
+/*userRouter.get('/search/user/list', userController.getSearchUsersList);
+userRouter.get('/search/user/details', userController.getSearchedUserData);
+userRouter.get('/search/user/repo', userController.getSearchedUserRepo);*/
 
-router.use(protect);
+userRouter.use(protect);
 
-router.get('/me/details', getAuthenticatedUserData);
-router.get('/me/repos', getAuthenticatedUserRepo);
-router.post('/me/create', postAuthenticatedUserCreateRepo);
-router.delete('/me/repo', deleteAuthenticatedUserRepo);
+userRouter.get('/me/details', getAuthenticatedUserData);
+userRouter.get('/me/repos', getAuthenticatedUserRepo);
+userRouter.post('/me/create', postAuthenticatedUserCreateRepo);
+userRouter.delete('/me/delete/repo', deleteAuthenticatedUserRepo);
 
-export { router };
+export { userRouter };
