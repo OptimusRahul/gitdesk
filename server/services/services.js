@@ -21,9 +21,9 @@ export const checkEvent = (mainWindow, event, args) => {
             openVSCode(args.repoURL);
             break;
         default:
-            /*event.sender.send(
+            event.sender.send(
                 `${clientConfiguration.invalidClientEvent}`, 
-                setzxReponseMessage(404, 'fail', 'Invalid Action')
-            );*/
+                responseObj(404, 'fail', 'Invalid Action')
+            );
     }
 };

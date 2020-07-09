@@ -18,7 +18,6 @@ passport.use(new GitHubStrategy({
         callbackURL: githubConfiguration.callbackURL
     },
     (accessToken, refreshToken, profile, done) => {
-        //console.log('----------accesstoken-----', accessToken, profile);
         const userData = {
             profile: profile,
             token: accessToken
