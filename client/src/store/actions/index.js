@@ -25,6 +25,10 @@ export {
 } from './user/userRepo';
 
 export {
+    getRepoLanguage
+} from './repoLanguage/repoLanguage';
+
+export {
     openBrowserProcess,
     catchBrowserProcess
 } from './osApps/browser';

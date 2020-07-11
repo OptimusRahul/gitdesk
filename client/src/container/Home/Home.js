@@ -10,18 +10,22 @@ import './Home.css';
 
 class Home extends Component {
 
-    constructor(props){
+    /*constructor(props){
         super(props);
-        this.state = {
+        /*this.state = {
             type: 'owner',
             user: null,
             token: false
-        }
+        }*/
         //this.getAccessToken();
-        console.log(this.props.location);
+     //   console.log(this.props.location);
+    //}
+
+    shouldComponentUpdate() {
+        return false;
     }
 
-    getAccessToken = () => {
+    /*getAccessToken = () => {
         const electron = window.require("electron");
         const ipcRenderer  = electron.ipcRenderer;
         ipcRenderer.on('github-oauth-reply', (event, access_token ) => {
@@ -30,7 +34,7 @@ class Home extends Component {
             window.localStorage.setItem('gitHubToken', access_token);
             this.setState({ token: true });
         });
-    }
+    }*/
 
     getCreateData = (data) => {
         console.log('clicked', data)
@@ -39,10 +43,10 @@ class Home extends Component {
     render() {
         //this.getAccessToken();
         let mainComponent;
-        console.log(this.props.location);
-        console.log(window.localStorage.getItem('gitHubToken'));
-        if(!window.localStorage.getItem('gitHubToken') && !this.state.token){
-            this.getAccessToken();
+        //console.log(this.props.location);
+        //console.log(window.localStorage.getItem('gitHubToken'));
+        /*if(!window.localStorage.getItem('gitHubToken') && !this.state.token){
+            //this.getAccessToken();
             mainComponent = <Spinner />
         } else if(this.props.location.pathname === '/searchedUser'){
             if(this.props.location.state.login !== this.state.user){
@@ -51,20 +55,20 @@ class Home extends Component {
         } else if(this.props.location.pathname === '/usersList'){
             mainComponent = '';
         } else {
-            console.log(window.localStorage.getItem('gitHubToken'));
+            console.log(window.localStorage.getItem('gitHubToken'));*/
             mainComponent = (
                         <Container fluid >
                             <Row style={{height: '100vh'}}>
                                 <Col sm={4}>
-                                    <GetUser type={this.state.type} userName={this.state.user}/>
+                                    <GetUser />{/*type={this.props.type} userName={this.props.user}/>*/}
                                 </Col>
                                 <Col sm={8}>
-                                    <GetRepo type={this.state.type} userName={this.state.user}/>
+                                    <GetRepo />{/*type={this.state.type} userName={this.state.user}/>*/}
                                 </Col>
                             </Row>
                         </Container>
             );
-        }
+        // }
         
         return(
             <div >
@@ -76,13 +80,13 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => {
+/*const mapStateToProps = state => {
     return {
-        type: state.home.type,
-        user: state.home.user,
-        token: state.home.token
+        type: state.owner.userType,
+        user: state.owner.user,
+        //token: state.owner.token
     };
-};
+};*/
 
 /*const mapDispatchToProps = dispatch => {
     return {
@@ -90,4 +94,4 @@ const mapStateToProps = state => {
     }
 };*/
 
-export default connect(null, mapStateToProps)(Home);
+export default connect(null, null)(Home); //connect(mapStateToProps, null)(Home);

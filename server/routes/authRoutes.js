@@ -1,8 +1,6 @@
 import express from 'express';
 import passport from 'passport';
 import { githubConfiguration } from '../config/config';
-import { ipcMain } from 'electron';
-//import { passport } from '../controller/passport';
 
 const authRouter = express.Router();
 
@@ -20,7 +18,6 @@ authRouter.get('/auth/github/callback',
         githubConfiguration.access_token = req.user.token;
         console.log('Inside auth callback ---------', token);
         res.redirect(`http://localhost:3000/home?token=${token}`);
-
     }
 );
 

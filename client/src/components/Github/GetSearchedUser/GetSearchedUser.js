@@ -36,7 +36,7 @@ class GetSearchedUser extends Component {
                                     <GetUser type={this.state.type} userName={this.state.user}/>
                                 </Col>
                                 <Col sm={8}>
-                                    <GetRepo type={this.state.type} userName={this.state.user}/>
+                                    {/*<GetRepo type={this.state.type} userName={this.state.user}/>*/}
                                 </Col>
                             </Row>
                         </Container>

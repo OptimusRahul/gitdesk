@@ -2,13 +2,9 @@ import { shell } from 'electron';
 import { clientConfiguration,  } from '../config/config';
 import { responseObj } from '../utility/responseObject';
 import { openVSCode } from '../controller/vscodeController';
-import { oauthGithub } from '../controller/authController';
 
 export const checkEvent = (mainWindow, event, args) => {
     switch(args.action){
-        case clientConfiguration.authEvent: 
-            oauthGithub(mainWindow);
-            break;
         case clientConfiguration.browserEvent:
             shell.openExternal(args.url);
             event.sender.send(

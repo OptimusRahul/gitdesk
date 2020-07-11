@@ -2,7 +2,8 @@ import * as actionTypes from '../../actions/actionTypes/actionTypes';
 import { updateObject } from '../../../utility/utility';
 
 const initalState = {
-
+    type: 'owner',
+    user: null
 }
 
 const fetchUserRepoInit = (state, action) => {

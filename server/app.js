@@ -27,6 +27,7 @@ const corsOption = {
     }
 };*/
 
+mainApp.use(express.json())
 mainApp.use(cors());
 mainApp.use(passport.initialize());
 //mainApp.use(passport.session());

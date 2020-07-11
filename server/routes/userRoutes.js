@@ -1,19 +1,18 @@
 import { Router } from 'express';
 import { protect } from '../middlewares/checkAuthState';
-import {
-    getAuthenticatedUserData, 
-    getAuthenticatedUserRepo,
-    postAuthenticatedUserCreateRepo,
-    deleteAuthenticatedUserRepo
-} from '../controller/userController';
+import { getAuthenticatedUserData, postAuthenticatedUserCreateRepo, 
+         deleteAuthenticatedUserRepo, getSearchedUserData } from '../controller/userController';
+import { getSearchedUserList } from '../controller/userSearchController';
+import { getAuthenticatedUserRepo, getSearchedUserRepo } from '../controller/repoController';
 
 const userRouter = Router();
 
-/*userRouter.get('/search/user/list', userController.getSearchUsersList);
-userRouter.get('/search/user/details', userController.getSearchedUserData);
-userRouter.get('/search/user/repo', userController.getSearchedUserRepo);*/
+userRouter.get('/search/user/list', getSearchedUserList);
+userRouter.get('/search/user/details', getSearchedUserData);
+userRouter.get('/search/user/repo', getSearchedUserRepo);
 
-userRouter.use(protect);
+
+//userRouter.use(protect);
 
 userRouter.get('/me/details', getAuthenticatedUserData);
 userRouter.get('/me/repos', getAuthenticatedUserRepo);

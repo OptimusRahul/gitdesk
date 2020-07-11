@@ -17,7 +17,7 @@ class App extends Component {
     login: false
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     this.init();
   }
 
@@ -28,7 +28,7 @@ class App extends Component {
       console.log('hi', access_token);
       this.setState({ login: true });
     });
-  }
+  }*/
 
   render() {
       let routes;

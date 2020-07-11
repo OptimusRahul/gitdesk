@@ -5,37 +5,28 @@ const initalState = {
     token: null,
     error: null,
     loading: false,
-    authRedirect: '/'    
+    authRedirect: '/'
 };
 
 const authStart = (state, action) => {
-    return updateObject(state, { error: null, loading: true });
+    return updateObject(state, action);
 };
 
 const authSuccess = (state, action) => {
-    return updateObject(state, {
-        token: action.token,
-        error: null,
-        loading: false,
-        authRedirectPath: '/'
-    });
+    return updateObject(state, action);
 };
 
 const authFail = (state, action) => {
-    return updateObject(state, {
-        error: action.error,
-        loading: false
-    });
+    return updateObject(state, action);
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null });
+    return updateObject(state, action);
 };
 
 const setAuthRedirectPath = (state, action) => {
-    return updateObject(state, { authRedirectPath: action.path });
+    return updateObject(state, action);
 }
-
 
 export const authReducer = (state = initalState, action) => {
     switch (action.type) {

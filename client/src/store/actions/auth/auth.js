@@ -13,13 +13,15 @@ export const authSuccess = (token) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token,
+        loading: false
     };
 };
 
 export const authFail = (error) => {
     return {
         type: actionTypes.AUTH_FAIL,
-        error
+        error,
+        loading: false
     };
 };
 

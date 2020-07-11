@@ -1,48 +1,68 @@
 import axios from 'axios';
-import { urlConfiguration } from '../config/config';
+import { urlConfiguration, githubConfiguration, userConfiguration } from '../config/config';
 import catchAsync from '../utility/catchAsync';
-import { response } from 'express';
 
 const baseURL = urlConfiguration.baseURL;
 
-const headers = {
-    "headers" : {
-        'Authorization' : `token 123`,
-        'Content-type' : 'application/json'
-    }
-};
-
-export const getAuthenticatedUserData = catchAsync(async(token) => {
-    return await axios.get(`${baseURL}/user`,  headers)
-        .then(res => {
-            return response.status(200).json({
+export const getAuthenticatedUserData = async(req, res, next) => {
+    console.log('Inside Auth USer');
+    const headers = {
+        "headers" : {
+            'Authorization' : `token ${githubConfiguration.access_token}`,
+            'Content-type' : 'application/json'
+        }
+    };
+    await axios.get(`${baseURL}/user`, headers)
+        .then(data => {
+            // console.log(data);
+            userConfiguration.userName = data.data.login;
+            res.status(200).json({
+                userName: data.data.login,
                 slug: 'auth-user-profile',
-                message: res
+                message: 'Success',
+                data: data.data
             });
         })
         .catch(err => {
-            return response.status(404).json({
+            console.log(err);
+            res.status(404).json({
                 slug: 'fail',
                 message: err
             })
         });
-});
+};
 
-export const getAuthenticatedUserRepo = catchAsync(async(token, page = 1, per_page = 10) => {
-    return await axios.get(`${baseURL}/user/repos?page=${page}&per_page=${per_page}&${secret}`, headers)
-        .then(res => {
-            return response.status(200).json({
-                slug: `auth-user-repo-page-${page}/${per_page}`,
-                message: res
+export const getSearchedUserData = async(req, res, next) => {
+    const userName = req.query.userName;
+    const page = req.query.page || 1;
+    const perPage = req.query.perPage || 30;
+
+    const headers = {
+        "headers" : {
+            'Authorization' : `token ${githubConfiguration.access_token}`,
+            'Content-type' : 'application/json'
+        }
+    };
+
+    await axios.get(`${baseURL}/users/${userName}?page=${page}&per_page=${perPage}`)
+        .then(data => {
+            // console.log(data);
+            userConfiguration.userName = data.data.login;
+            res.status(200).json({
+                userName: data.data.login,
+                slug: 'search-user-profile',
+                message: 'Success',
+                data: data.data
             });
         })
         .catch(err => {
-            return response.status(404).json({ 
+            console.log(err);
+            res.status(404).json({
                 slug: 'fail',
                 message: err
-            });
+            })
         });
-});
+};
 
 export const postAuthenticatedUserCreateRepo = catchAsync(async(token, data) => {
     return await axios.post(`${baseURL}/user/create`, headers, ...data)

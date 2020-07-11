@@ -38,3 +38,8 @@ export const githubConfiguration = {
 export const urlConfiguration = {
     baseURL: 'https://api.github.com'
 };
+
+export const userConfiguration = {
+    applicationOwner: null,
+    searchedUserName: null
+};

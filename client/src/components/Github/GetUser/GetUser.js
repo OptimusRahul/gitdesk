@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 import Profile from '../../Profile/Profile';
 import Spinner from '../../UI/Spinner/Spinner';
-import { getLoginUser, getSearchedUserData } from '../../../store/index';
+// import { getLoginUser, getSearchedUserData } from '../../../store/index';
 
 class GetUser extends Component{
-    constructor(props){
+    /*constructor(props){
         super(props);
-        this.state = {
-            user: null,
-            userName: null,
+        /*this.state = {
             loading: true
-        }
+        }*/
+    // }
+
+    shouldComponentUpdate(){
+        return true;
     }
 
-    checkLocalStorageHandler = () => {
+    /*componentDidMount(){
+        if(!this.props.loading){
+            this.setState({ loading: false });
+        }
+    }*/
+
+    /*checkLocalStorageHandler = () => {
         let user, currentUser;
         let flag = false;
         if(this.props.type === 'owner'){
@@ -38,9 +48,9 @@ class GetUser extends Component{
         } else{
             this.getUserData();
         }
-    }
+    }*/
 
-    async getUserData(){
+    /*async getUserData(){
 
         let userData;
         if(this.props.type === 'owner'){
@@ -84,18 +94,20 @@ class GetUser extends Component{
             this.setState({ user: userDetails, userName: owner, loading: false })
         else 
             this.setState({ user: userDetails, userName: currentUser, loading: false});
-    }
+    }*/
     
     render() {
         let currentRendererComponent;
-        if(this.state.loading){
+        console.log(this.props.loading);
+        if(this.props.loading && this.props.user === null){
+            console.log('inside-----------')
             currentRendererComponent = <Spinner />;
-            this.getUserData();
+            this.props.onUserData();
         } else {
             currentRendererComponent = <Profile 
-                                            user={this.state.user} 
-                                            owner={this.state.userName}
-                                            type={this.props.type} />;
+                                            user={this.props.user.data.data} 
+                                            owner={this.props.userName}
+                                            type={this.props.type} />
         }
         return (
             <div>
@@ -105,4 +117,19 @@ class GetUser extends Component{
     }
 }
 
-export default GetUser;
+const mapStateToProps = state => {
+    return {
+        type: state.owner.userType,
+        user: state.owner.user,
+        userName: state.owner.userName,
+        loading: state.owner.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onUserData: () => dispatch(actions.fetchOwnerData())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GetUser);

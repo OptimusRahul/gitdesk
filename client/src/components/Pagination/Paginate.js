@@ -19,50 +19,50 @@ class Paginate extends Component {
     }
 
 
-    fetchAPI = (page) => {
-        this.setState({ currentPage: page });
-        if(this.pageType=== 'repo'){
-            this.fetchRepo(page);
-        } else if(this.pageType === 'usersList'){
-            this.fetchUsers(page);
-        }
-    }
+    // fetchAPI = (page) => {
+    //     this.setState({ currentPage: page });
+    //     if(this.pageType=== 'repo'){
+    //         this.fetchRepo(page);
+    //     } else if(this.pageType === 'usersList'){
+    //         this.fetchUsers(page);
+    //     }
+    // }
 
-    fetchRepo = async(page) => {
-        //this.props.setLoader();
-        if(this.userType === 'user'){            
-            let data = await getSearchedUserRepo(window.localStorage.getItem('searchedUserLoginName'), page);
-            console.log(data);
-            this.props.setRepo(data, 'user', page);
-            this.setState({ currentPage: page });   
-        } else if(this.userType === 'owner') {
-            let data = await getLoginUserRepo(page);
-            this.props.setRepo(data, 'owner', page);
-            this.setState({ currentPage: page });
-        }
-    }
+    // fetchRepo = async(page) => {
+    //     //this.props.setLoader();
+    //     if(this.userType === 'user'){            
+    //         let data = await getSearchedUserRepo(window.localStorage.getItem('searchedUserLoginName'), page);
+    //         console.log(data);
+    //         this.props.setRepo(data, 'user', page);
+    //         this.setState({ currentPage: page });   
+    //     } else if(this.userType === 'owner') {
+    //         let data = await getLoginUserRepo(page);
+    //         this.props.setRepo(data, 'owner', page);
+    //         this.setState({ currentPage: page });
+    //     }
+    // }
 
-    fetchUsers = async(page) => {
-        let data = await getSearchedUser(this.props.user, page);
-        this.props.setUsers(data);
-        this.setState({ currentPage: page });
-    }
+    // fetchUsers = async(page) => {
+    //     let data = await getSearchedUser(this.props.user, page);
+    //     this.props.setUsers(data);
+    //     this.setState({ currentPage: page });
+    // }
 
-    componentDidMount() {
+    // componentDidMount() {
 
-    }
+    // }
 
-    getTotalPage() {
+    // getTotalPage() {
 
-    }
+    // }
 
-    getPreviousPage() {
+    // getPreviousPage() {
 
-    }
+    // }
 
-    getNextPage() {
+    // getNextPage() {
 
-    }
+    // }
 
     getPageArray = (lastPageNumber, startingPageNumber = 1) => {
         let pageArr = [];
@@ -90,16 +90,16 @@ class Paginate extends Component {
                 <Pagination style={{ display: 'flex', justifyContent: 'center'}}>
                       {this.state.currentPage - this.ellipsisSize > 0 ? <Pagination.Ellipsis /> : null }
                         {paginationSection.map(page=><Pagination.Item 
-                                                        active={this.state.currentPage === page ? true : false}
-                                                        onClick={() => this.fetchAPI(page)}>{page}</Pagination.Item>)}
+                                                        active={this.props.currentPage === page ? true : false}
+                                                        onClick={() => this.props.fetchPageData(page)}>{page}</Pagination.Item>)}
                       {this.state.currentPage + this.ellipsisSize < this.state.lastPageNumber ? <Pagination.Ellipsis /> : null}
                 </Pagination>
             );
         }else {
             paginationSection = this.getPageArray(this.state.lastPageNumber).map(page=>(
                 <Pagination.Item 
-                    active={this.state.currentPage === page ? true : false} 
-                    onClick={() => this.fetchAPI(page)} >
+                    active={this.props.currentPage === page ? true : false} 
+                    onClick={() => this.props.fetchPageData(page)} >
                     {page}
                 </Pagination.Item>)
             )

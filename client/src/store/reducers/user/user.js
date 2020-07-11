@@ -2,7 +2,10 @@ import * as actionTypes from '../../actions/actionTypes/actionTypes';
 import { updateObject } from '../../../utility/utility';
 
 const initalState = {
-
+    type: null,
+    user: null,
+    userName: null,
+    loading: true
 }
 
 const fetchUserInit = (state, action) => {

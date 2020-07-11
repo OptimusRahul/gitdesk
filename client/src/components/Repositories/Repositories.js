@@ -23,8 +23,11 @@ class Repositories extends Component {
     render() {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', marginTop: '20px'}}>
-                {Array.from(this.props.userRepo.keys(), repo => {
-                    let singleRepo = this.props.userRepo.get(repo);
+                {console.log(this.props.userRepo.data.data)}
+                {//Array.from(this.props.userRepo.data.data, repo => {
+                    Object.entries(this.props.userRepo.data.data).map(item => {
+                    let singleRepo = Object.values(item)[1];
+                    //console.log(singleRepo);
                     return <Repository
                                 name={singleRepo.name} 
                                 url={singleRepo.url}
@@ -36,7 +39,8 @@ class Repositories extends Component {
                                 openVSCode={this.openVSCodeHandler}
                                 openChrome={this.openChromeHandler}
                                 loadForkURL={this.forkURL} />
-                })}
+                    })
+                }
             </div>
         );
     }

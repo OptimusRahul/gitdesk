@@ -5,34 +5,13 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
+import { rootReducer } from './store/reducers/rootReducer';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { 
-  authReducer, 
-  ownerReducer, 
-  ownerRepoReducer, 
-  userReducer,
-  userRepoReducer, 
-  listReducer, 
-  createOwnerRepoReducer,
-  browserReducer,
-  editorReducer 
-} from './store/reducers/index';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : (null || compose);
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-  ownerData: ownerReducer,
-  ownerRepo: ownerRepoReducer,
-  createOwnerRepo: createOwnerRepoReducer,
-  userData: userReducer,
-  userRepo: userRepoReducer,
-  searchUser: listReducer,
-  browser: browserReducer,
-  editor: editorReducer
-});
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
