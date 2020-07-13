@@ -4,7 +4,6 @@ import Card from '../UI/Card/Card';
 
 const profile = (props) => {
 
-    console.log(props.user, props.owner, props.type);
     let userData = props.user;
     let avatar_url = userData.avatar_url;
     let bio = userData.bio;

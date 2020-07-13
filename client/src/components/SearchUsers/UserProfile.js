@@ -15,18 +15,12 @@ const userProfile = (props) => {
                     userType='searchedUser' 
                     user={props.user}
                     fetchPageData={props.fetchPageData} />
-
-            {/*Array.from(props.usersList.items, user => {
-                return <Card 
-                            avatar_url={user.avatar_url} 
-                            login={user.login}
-                            loadProfile={props.loadUserProfile} />
-            })*/}
-            {console.log(props.usersList)}
+                    
             {Object.values(props.usersList).map(user => {
                  return <Card 
                     avatar_url={user.avatar_url} 
                     login={user.login}
+                    owner={props.owner}
                     loadProfile={props.loadUserProfile} />
             })}
         </div>

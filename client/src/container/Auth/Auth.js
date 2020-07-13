@@ -3,17 +3,9 @@ import { Button, Card } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
-import { updateObject } from '../../utility/utility';
 import './Auth.css';
 
 class Auth extends Component {
-
-    handleNewWindow = () => {
-        /*const electron = window.require("electron");
-        const ipcRenderer  = electron.ipcRenderer;
-        ipcRenderer.send('auth', 'hi');*/
-        
-    }
 
     render() {
         let title = 'SIGN IN WITH GITHUB';

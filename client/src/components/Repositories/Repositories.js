@@ -24,10 +24,8 @@ class Repositories extends Component {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', marginTop: '20px'}}>
                 {console.log(this.props.userRepo.data.data)}
-                {//Array.from(this.props.userRepo.data.data, repo => {
-                    Object.entries(this.props.userRepo.data.data).map(item => {
+                {Object.entries(this.props.userRepo.data.data).map(item => {
                     let singleRepo = Object.values(item)[1];
-                    //console.log(singleRepo);
                     return <Repository
                                 name={singleRepo.name} 
                                 url={singleRepo.url}

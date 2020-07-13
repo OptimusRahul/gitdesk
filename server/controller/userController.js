@@ -14,7 +14,6 @@ export const getAuthenticatedUserData = async(req, res, next) => {
     };
     await axios.get(`${baseURL}/user`, headers)
         .then(data => {
-            // console.log(data);
             userConfiguration.userName = data.data.login;
             res.status(200).json({
                 userName: data.data.login,
@@ -36,7 +35,7 @@ export const getSearchedUserData = async(req, res, next) => {
     const userName = req.query.userName;
     const page = req.query.page || 1;
     const perPage = req.query.perPage || 30;
-
+    console.log(userName);
     const headers = {
         "headers" : {
             'Authorization' : `token ${githubConfiguration.access_token}`,
@@ -44,7 +43,7 @@ export const getSearchedUserData = async(req, res, next) => {
         }
     };
 
-    await axios.get(`${baseURL}/users/${userName}?page=${page}&per_page=${perPage}`)
+    await axios.get(`${baseURL}/users/${userName}`, headers)
         .then(data => {
             // console.log(data);
             userConfiguration.userName = data.data.login;

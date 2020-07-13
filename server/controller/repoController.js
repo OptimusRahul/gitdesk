@@ -7,7 +7,7 @@ const baseURL = urlConfiguration.baseURL;
 export const getAuthenticatedUserRepo = async(req, res, next) => {
     const pageNo = req.query.page;
     const perPage = req.query.per_page;
-    const userName = req.query.userName;
+    let userName = req.query.userName;
     const lastPageNumber = req.query.lastPageNumber;
     const paginate = req.query.paginate;
     console.log(userName, paginate);
@@ -20,7 +20,7 @@ export const getAuthenticatedUserRepo = async(req, res, next) => {
     };
     await axios.get(`${baseURL}/user/repos?page=${pageNo}&per_page=${perPage}`, headers)
         .then(data => {
-            //console.log(data);
+            //console.log(data.data);
             apiResponse = data;
             /*let repositories = new Map();
             repositories =  modifyRepositoryData(userName, data);
@@ -38,6 +38,13 @@ export const getAuthenticatedUserRepo = async(req, res, next) => {
             });
         });
 
+        apiResponse.data.forEach(item => {
+            if(!item.owner) {
+                userName = item.owner.login;
+                return;
+            }
+        })  
+
         let { totalPageNumber, jsonResponse } = await getRepository(apiResponse, lastPageNumber, userName, paginate)
 
         //console.log(jsonResponse);
@@ -50,19 +57,22 @@ export const getAuthenticatedUserRepo = async(req, res, next) => {
 };
 
 export const getSearchedUserRepo = async(req, res, next) => {
-    const user = req.query.user;
-    const page = req.query.page || 1;
-    const perPage = req.query.perPage || 10
+    const pageNo = req.query.page;
+    const perPage = req.query.per_page;
+    let userName = req.query.userName;
+    const lastPageNumber = req.query.lastPageNumber;
+    const paginate = req.query.paginate;
+    console.log(userName, paginate);
 
     let apiResponse;
 
     const headers = {
-        "headers":{
-            "Authorization":  `token ${window.localStorage.getItem('gitHubToken')}`,
-            "Content-type": "application/json"
+        "headers" : {
+            'Authorization' : `token ${githubConfiguration.access_token}`,
+            'Content-type' : 'application/json'
         }
     };
-    await axios.get(`${baseURL}/users/${user}/repos?page=${page}&per_page=${perPage}&${secret}`, headers)
+    await axios.get(`${baseURL}/users/${userName}/repos?page=${pageNo}&per_page=${perPage}`, headers)
         .then(data => {
             apiResponse = data;
         })
@@ -116,7 +126,7 @@ const getRepository = async(apiResponse, lastPageNumber, userName, paginate) => 
     return { totalPageNumber, jsonResponse } ;
 }
 
-const modifyRepositoryData = async(userName, userRepo) => {
+const modifyRepositoryData = async(userName, userRepo) => { 
 
     let repository = new Map();
     let repositoryLanguage = new Map();
@@ -126,7 +136,7 @@ const modifyRepositoryData = async(userName, userRepo) => {
         for(const property in userRepo.data) {
             if(!userRepo.data[property].private) {
                 let currentRepoURL = userRepo.data[property].name;
-                let currentRepo = await getRepoLanguages(userName, currentRepoURL); 
+                let currentRepo = await getRepoLanguages(userName, currentRepoURL);
                 currentRepo && repositoryLanguage.set(currentRepoURL, Object.keys(currentRepo.data));                
             }
         }

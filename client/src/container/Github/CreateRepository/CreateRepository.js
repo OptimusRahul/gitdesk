@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 
-import { createRepository } from '../../../store/index';
+//import { createRepository } from '../../../store/actions/index';
 import { Link } from 'react-router-dom';
 
 class CreateRepo extends Component {
@@ -16,7 +16,7 @@ class CreateRepo extends Component {
     }
 
     createRepoHandler = async(data) => {
-        let response = await createRepository(data);
+        //let response = await createRepository(data);
     }   
 
     render() {

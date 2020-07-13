@@ -4,29 +4,19 @@ export {
     setAuthRedirectPath
 } from './auth/auth';
 
-export {
-    fetchOwnerData
-} from './owner/owner';
+export { 
+    fetchAuthenticatedUserData,
+    fetchSearchedUserData
+} from './user/user';
 
-export {
-    fetchOwnerRepo
-} from './owner/ownerRepo';
+export { 
+    fetchAuthenticatedUserRepo,
+    fetchSearchedUserRepo
+} from './user/userRepo';
 
 export {
     searchUserList
 } from './list/list'
-
-export {
-    fetchUserData
-} from './user/user';
-
-export {
-    fetchUserRepo
-} from './user/userRepo';
-
-export {
-    getRepoLanguage
-} from './repoLanguage/repoLanguage';
 
 export {
     openBrowserProcess,

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
-import Navbar from '../../Navbar/Navbar';
-import Spinner from '../../UI/Spinner/Spinner';
+import Navbar from '../../../components/Navbar/Navbar';
 import GetUser from '../GetUser/GetUser';
 import GetRepo from '../GetRepository/GetRepo';
 
@@ -25,18 +24,19 @@ class GetSearchedUser extends Component {
 
     render() {
         let mainComponent;
-        if(this.props.location.state.login !== this.state.user && this.state.loading){
-                this.loadUserProfile();
-                mainComponent = <Spinner />;
-        } else {
+        let userType, searchName, search;
+        if(this.props.location && this.props.location.state){
+            userType = 'search'
+            searchName = this.props.location.state.login;
+            search = true;
             mainComponent = (
                         <Container fluid >
                             <Row style={{height: '100vh'}}>
                                 <Col sm={4}>
-                                    <GetUser type={this.state.type} userName={this.state.user}/>
+                                    <GetUser type={userType} searchName={searchName} search={search}/>
                                 </Col>
                                 <Col sm={8}>
-                                    {/*<GetRepo type={this.state.type} userName={this.state.user}/>*/}
+                                    <GetRepo type={userType} searchName={searchName} search={search}/>
                                 </Col>
                             </Row>
                         </Container>

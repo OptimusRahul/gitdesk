@@ -19,7 +19,6 @@ export const getSearchedUserList = async(req, res, next) => {
     await axios.get(`${baseURL}/search/users?q=${userName}&page=${page}&per_page=${perPage}`, headers)
         .then(data => {
             apiResponse = data;
-            console.log(data);
             //res.status(200).send(data);
             // res.status(200).send({
             //     slug: `${userName}-searched-list`,
