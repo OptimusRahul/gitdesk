@@ -2,7 +2,10 @@ import * as actionTypes from '../../actions/actionTypes/actionTypes';
 import { updateObject } from '../../../utility/utility';
 
 const initalState = {
-
+    user: null,
+    usersList: null,
+    total_count: 1,
+    loading: true,
 }
 
 const searchUserInit = (state, action) => {

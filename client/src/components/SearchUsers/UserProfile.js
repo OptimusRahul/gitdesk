@@ -14,13 +14,14 @@ const userProfile = (props) => {
                     pageType='usersList'
                     userType='searchedUser' 
                     user={props.user}
-                    setUsers={props.setUsers} />
-
-            {Array.from(props.usersList.items, user => {
-                return <Card 
-                            avatar_url={user.avatar_url} 
-                            login={user.login}
-                            loadProfile={props.loadUserProfile} />
+                    fetchPageData={props.fetchPageData} />
+                    
+            {Object.values(props.usersList).map(user => {
+                 return <Card 
+                    avatar_url={user.avatar_url} 
+                    login={user.login}
+                    owner={props.owner}
+                    loadProfile={props.loadUserProfile} />
             })}
         </div>
     );

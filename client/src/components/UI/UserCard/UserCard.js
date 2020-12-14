@@ -14,17 +14,18 @@ const userCard = (props) => {
                 <h5>{props.login}</h5>
             </Card.Body>
             <Card.Body style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-            {props.login === window.localStorage.getItem('loginUserName') ? 
+                {console.log('------------------------>',props.login, props.owner)}
+            {props.login === props.owner ? 
                         (<Link 
                             to={{
                                 pathname: '/home' }}> View Profile</Link>) : 
                         (<Link to={{
                                 pathname: '/getUser',
                                 state: {
-                                    login: `${props.login}`
+                                    login: `${props.login}`,
+                                    type: 'search'
                                 }
                             }} variant="light"> View Profile </Link>)}
-                {/*<Button variant="light" onClick={() => props.loadProfile(props.login)}> View Profile </Button>*/}
             </Card.Body>
         </Card>
     );

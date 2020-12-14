@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, Button } from 'react-bootstrap';
 
-import GetUser from '../../components/Github/GetUser/GetUser';
-import GetRepo from '../../components/Github/GetRepository/GetRepo';
+import { connect } from 'react-redux';
+import GetUser from '../Github/GetUser/GetUser';
+import GetRepo from '..//Github/GetRepository/GetRepo';
 import Navbar from '../../components/Navbar/Navbar';
 
 import './Home.css';
 
 class Home extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            type: 'owner',
-            user: null,
-            token: false
-        }
-        this.getAccessToken();
+    shouldComponentUpdate() {
+        return false;
     }
 
-    getAccessToken = () => {
-        const electron = window.require("electron");
-        const ipcRenderer  = electron.ipcRenderer;
-        ipcRenderer.on('github-oauth-reply', (event, access_token ) => {
-            console.log('hi', access_token);
-            this.token=access_token;
-            window.localStorage.setItem('gitHubToken', access_token);
-            this.setState({ token: true });
-        });
+    handleBack = () => {
+        this.props.history.go(-1);
     }
 
     getCreateData = (data) => {
@@ -35,35 +23,18 @@ class Home extends Component {
     }
 
     render() {
-        //this.getAccessToken();
-        let mainComponent;
-        console.log(this.props.location);
-        console.log(window.localStorage.getItem('gitHubToken'));
-        if(!window.localStorage.getItem('gitHubToken') && !this.state.token){
-            this.getAccessToken();
-            mainComponent = <Spinner />
-        } else if(this.props.location.pathname === '/searchedUser'){
-            if(this.props.location.state.login !== this.state.user){
-                this.loadUserProfile();
-            }
-        } else if(this.props.location.pathname === '/usersList'){
-            mainComponent = '';
-        } else {
-            console.log(window.localStorage.getItem('gitHubToken'));
-            mainComponent = (
-                        <Container fluid >
+        let mainComponent = (
+                <Container fluid >
                             <Row style={{height: '100vh'}}>
                                 <Col sm={4}>
-                                    <GetUser type={this.state.type} userName={this.state.user}/>
+                                    <GetUser search={false}/>
                                 </Col>
                                 <Col sm={8}>
-                                    <GetRepo type={this.state.type} userName={this.state.user}/>
+                                    <GetRepo search={false}/>
                                 </Col>
                             </Row>
                         </Container>
             );
-        }
-        
         return(
             <div >
                 <Navbar 
@@ -74,4 +45,10 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        type: state.owner.userType,
+    };
+};
+
+export default connect(mapStateToProps, null)(Home);

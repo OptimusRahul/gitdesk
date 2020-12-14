@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { connect } from 'react-redux';
+
+import * as actions from '../../store/actions/index';
+import './Auth.css';
 
 class Auth extends Component {
-
-    handleNewWindow = () => {
-        const electron = window.require("electron");
-        const ipcRenderer  = electron.ipcRenderer;
-        ipcRenderer.send('auth', 'hi');
-    }
 
     render() {
         let title = 'SIGN IN WITH GITHUB';
@@ -21,7 +19,8 @@ class Auth extends Component {
                             We provide you a new and simple way to manage your projects.
                             Just Click on the button below, to enjoy the new experience of github.
                         </Card.Text>
-                        <Button variant="primary" onClick={this.handleNewWindow}>{title}</Button>
+                        <a href='http://localhost:5000/auth/github'> SIGN IN WITH GITHUB </a>
+                        <Button variant="primary" onClick={this.props.onAuth}>{title}</Button>
                     </Card.Body>
                     <Card.Footer className="text-muted">Made by OptimusRahul</Card.Footer>
                 </Card>
@@ -30,16 +29,11 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
-/*<div class="d-flex flex-row mx-auto" style="min-height: 200px; width: 19rem;">
-    <div class="justify-content-center align-self-center mx-auto">
-        <div>
-            <div class="text-center">
-                Marks Attendence
-            </div>                     
-            <div>
-                Do Something Here
-            </div>                 
-        </div>             
-    </div>         
-</div>*/
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: () => dispatch(actions.auth()),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/home'))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);

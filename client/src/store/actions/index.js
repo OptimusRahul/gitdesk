@@ -1,41 +1,29 @@
 export {
-    authStart,
-    authSuccess,
-    authFail,
-    authLogout
+    auth,
+    authCheckState,
+    setAuthRedirectPath
 } from './auth/auth';
 
-export {
-    fetchOwnerInit,
-    fetchOwnerStart,
-    fetchOwnerSuccess,
-    fetchOwnerFail
-} from './owner/owner';
+export { 
+    fetchAuthenticatedUserData,
+    fetchSearchedUserData
+} from './user/user';
+
+export { 
+    fetchAuthenticatedUserRepo,
+    fetchSearchedUserRepo
+} from './user/userRepo';
 
 export {
-    fetchOwnerRepoInit,
-    fetchOwnerRepoStart,
-    fetchOwnerRepoSuccess,
-    fetchOwnerRepoFail
-} from './owner/ownerRepo';
-
-export {
-    searchUserInit,
-    searchUserStart,
-    searchUserSuccess,
-    searchUserFail
+    searchUserList
 } from './list/list'
 
 export {
-    fetchUserInit,
-    fetchUserStart,
-    fetchUserSuccess,
-    fetchUserFail
-} from './user/user';
+    openBrowserProcess,
+    catchBrowserProcess
+} from './osApps/browser';
 
 export {
-    fetchUserRepoInit,
-    fetchUserRepoStart,
-    fetchUserRepoSuccess,
-    fetchUserRepoFail
-} from './user/userRepo'
+    openEditorProcess,
+    catchEditorProcess
+} from './osApps/editor';

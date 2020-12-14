@@ -2,7 +2,15 @@ import * as actionTypes from '../../actions/actionTypes/actionTypes';
 import { updateObject } from '../../../utility/utility';
 
 const initalState = {
-
+    loading: true,
+    hasError: false,
+    repo: null,
+    error: null,
+    userType: null,
+    userName: null,
+    paginate: false,
+    currentPage: 1,
+    lastPageNumber: 1
 }
 
 const fetchUserRepoInit = (state, action) => {
@@ -29,5 +37,5 @@ export const userRepoReducer = (state = initalState, action) => {
         case actionTypes.FETCH_USER_REPO_FAIL : return fetchUserRepoFail(state, action);
         default: 
             return state
-    }
+       }
 }
